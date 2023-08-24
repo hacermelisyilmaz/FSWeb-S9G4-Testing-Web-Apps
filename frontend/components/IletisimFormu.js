@@ -82,6 +82,7 @@ const IletisimFormu = () => {
             value={form.ad}
             id="ad"
             placeholder="İlhan"
+            data-testid="ad-input"
           />
           {errors.ad && <p data-testid="error">Hata: {errors.ad}</p>}
         </div>
