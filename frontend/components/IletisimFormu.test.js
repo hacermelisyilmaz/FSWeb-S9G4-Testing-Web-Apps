@@ -104,4 +104,33 @@ test("ad,soyad, email render ediliyor. mesaj bölümü doldurulmadığında hata
   expect(hatalar).toHaveLength(0);
 });
 
-test("form gönderildiğinde girilen tüm değerler render ediliyor.", async () => {});
+test("form gönderildiğinde girilen tüm değerler render ediliyor.", async () => {
+  render(<IletisimFormu />);
+
+  const adInput = screen.getByTestId("ad-input");
+  await userEvent.type(adInput, "Melis");
+
+  const soyadInput = screen.getByTestId("soyad-input");
+  await userEvent.type(soyadInput, "Yilmaz");
+
+  const emailInput = screen.getByTestId("email-input");
+  await userEvent.type(emailInput, "x@x.x");
+
+  const messageInput = screen.getByTestId("message-input");
+  await userEvent.type(messageInput, "hello");
+
+  const gonderButonu = screen.getByTestId("submit-button");
+  await userEvent.click(gonderButonu);
+
+  const adDisplay = screen.getByTestId("firstnameDisplay");
+  expect(adDisplay).toHaveTextContent("Melis");
+
+  const soyadDisplay = screen.getByTestId("lastnameDisplay");
+  expect(soyadDisplay).toHaveTextContent("Yilmaz");
+
+  const emailDisplay = screen.getByTestId("emailDisplay");
+  expect(emailDisplay).toHaveTextContent("x@x.x");
+
+  const messageDisplay = screen.getByTestId("messageDisplay");
+  expect(messageDisplay).toHaveTextContent("hello");
+});

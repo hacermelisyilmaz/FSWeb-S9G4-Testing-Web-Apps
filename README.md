@@ -51,4 +51,4 @@ Yazacağınız testler, productiona pushladığınız koda güvenmenize yardımc
 - [x] eğer kullanıcı geçersiz bir mail girerse _"email geçerli bir email adresi olmalıdır."_ hata mesajı render edildiğinde.
 - [x] form soyad girilmeden gönderilirse _"soyad gereklidir."_ hata mesajı render edildiğinde.
 - [x] mesaj inputu girilmediğinde ama ad,soyad ve email geçerli değerlerle form gönderildiğinde hata mesajı gösterilmiyorsa.
-- [ ] kullanıcı tüm inputları geçerli bir şekilde doldurup gönderdiğinde tüm değerler görüntüleniyor.
+- [x] kullanıcı tüm inputları geçerli bir şekilde doldurup gönderdiğinde tüm değerler görüntüleniyor.
