@@ -22,6 +22,7 @@ test("kullanıcı adını 5 karakterden az girdiğinde BİR hata mesajı render 
 
   const adInput = screen.getByTestId("ad-input");
   await userEvent.type(adInput, "xxxx");
+
   const hataMesaji = screen.getByTestId("error");
   expect(hataMesaji).toBeInTheDocument();
 
@@ -34,11 +35,26 @@ test("kullanıcı inputları doldurmadığında ÜÇ hata mesajı render ediliyo
 
   const gonderButonu = screen.getByTestId("submit-button");
   await userEvent.click(gonderButonu);
+
   const hatalar = screen.queryAllByTestId("error");
   expect(hatalar).toHaveLength(3);
 });
 
-test("kullanıcı doğru ad ve soyad girdiğinde ama email girmediğinde BİR hata mesajı render ediliyor.", async () => {});
+test("kullanıcı doğru ad ve soyad girdiğinde ama email girmediğinde BİR hata mesajı render ediliyor.", async () => {
+  render(<IletisimFormu />);
+
+  const adInput = screen.getByTestId("ad-input");
+  await userEvent.type(adInput, "xxxxx");
+
+  const soyadInput = screen.getByTestId("soyad-input");
+  await userEvent.type(soyadInput, "x");
+
+  const gonderButonu = screen.getByTestId("submit-button");
+  await userEvent.click(gonderButonu);
+
+  const errorIdliElementler = screen.queryAllByTestId("error");
+  expect(errorIdliElementler).toHaveLength(1);
+});
 
 test('geçersiz bir mail girildiğinde "email geçerli bir email adresi olmalıdır." hata mesajı render ediliyor', async () => {});
 
