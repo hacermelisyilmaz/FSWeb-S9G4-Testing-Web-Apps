@@ -29,7 +29,14 @@ test("kullanıcı adını 5 karakterden az girdiğinde BİR hata mesajı render 
   expect(errorIdliElementler).toHaveLength(1);
 });
 
-test("kullanıcı inputları doldurmadığında ÜÇ hata mesajı render ediliyor.", async () => {});
+test("kullanıcı inputları doldurmadığında ÜÇ hata mesajı render ediliyor.", async () => {
+  render(<IletisimFormu />);
+
+  const gonderButonu = screen.getByTestId("submit-button");
+  await userEvent.click(gonderButonu);
+  const hatalar = screen.queryAllByTestId("error");
+  expect(hatalar).toHaveLength(3);
+});
 
 test("kullanıcı doğru ad ve soyad girdiğinde ama email girmediğinde BİR hata mesajı render ediliyor.", async () => {});
 
