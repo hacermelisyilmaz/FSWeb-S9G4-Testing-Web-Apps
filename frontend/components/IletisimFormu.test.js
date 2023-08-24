@@ -84,6 +84,24 @@ test('soyad girilmeden gönderilirse "soyad gereklidir." mesajı render ediliyor
   expect(hataMesaji).toHaveTextContent("soyad gereklidir.");
 });
 
-test("ad,soyad, email render ediliyor. mesaj bölümü doldurulmadığında hata mesajı render edilmiyor.", async () => {});
+test("ad,soyad, email render ediliyor. mesaj bölümü doldurulmadığında hata mesajı render edilmiyor.", async () => {
+  render(<IletisimFormu />);
+
+  const adInput = screen.getByTestId("ad-input");
+  await userEvent.type(adInput, "xxxxx");
+
+  const soyadInput = screen.getByTestId("soyad-input");
+  await userEvent.type(soyadInput, "xxxxx");
+
+  const emailInput = screen.getByTestId("email-input");
+  await userEvent.type(emailInput, "x@x.x");
+
+  const gonderButonu = screen.getByTestId("submit-button");
+
+  expect(gonderButonu).not.toBeDisabled();
+
+  const hatalar = screen.queryAllByTestId("error");
+  expect(hatalar).toHaveLength(0);
+});
 
 test("form gönderildiğinde girilen tüm değerler render ediliyor.", async () => {});
