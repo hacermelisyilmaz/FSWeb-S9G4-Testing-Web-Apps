@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, waitFor } from "@testing-library/react";
+import { getByTestId, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import userEvent from "@testing-library/user-event";
 import IletisimFormu from "./IletisimFormu";
@@ -68,7 +68,21 @@ test('geçersiz bir mail girildiğinde "email geçerli bir email adresi olmalıd
   );
 });
 
-test('soyad girilmeden gönderilirse "soyad gereklidir." mesajı render ediliyor', async () => {});
+test('soyad girilmeden gönderilirse "soyad gereklidir." mesajı render ediliyor', async () => {
+  render(<IletisimFormu />);
+
+  const adInput = screen.getByTestId("ad-input");
+  await userEvent.type(adInput, "xxxxx");
+
+  const emailInput = screen.getByTestId("email-input");
+  await userEvent.type(emailInput, "x@x.x");
+
+  const gonderButonu = screen.getByTestId("submit-button");
+  await userEvent.click(gonderButonu);
+
+  const hataMesaji = screen.getByTestId("error");
+  expect(hataMesaji).toHaveTextContent("soyad gereklidir.");
+});
 
 test("ad,soyad, email render ediliyor. mesaj bölümü doldurulmadığında hata mesajı render edilmiyor.", async () => {});
 
